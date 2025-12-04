@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikipedia de la Fórmula 1</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- HEADER PREMIUM -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <h1 class="main-title">📚 WIKIPEDIA DE LA FÓRMULA 1</h1>
+                    <p class="tagline">La Enciclopedia Más Completa • Pilotos • Pistas • Coches</p>
+                </div>
+            </div>
+            <button id="uploadToggleBtn" class="upload-btn premium">
+                <span class="icon">📸</span>
+                <span class="text">Carga Imágenes</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN CON EFECTO STICKY -->
+    <nav class="nav-tabs">
+        <div class="nav-container">
+            <button class="tab-btn active" data-tab="pilotos">
+                <span class="tab-icon">👨‍✈️</span>
+                <span class="tab-text">Pilotos</span>
+                <span class="tab-badge" id="pilots-badge">33</span>
+            </button>
+            <button class="tab-btn" data-tab="pistas">
+                <span class="tab-icon">🏁</span>
+                <span class="tab-text">Pistas</span>
+                <span class="tab-badge" id="tracks-badge">23</span>
+            </button>
+            <button class="tab-btn" data-tab="coches">
+                <span class="tab-icon">🏎️</span>
+                <span class="tab-text">Coches</span>
+                <span class="tab-badge" id="cars-badge">10</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PANEL DE CARGA PREMIUM -->
+    <div id="uploadPanel" class="upload-panel premium-panel">
+        <div class="upload-panel-content">
+            <div class="upload-panel-header">
+                <h2>🖼️ Centro de Descargas</h2>
+                <button id="closeUploadBtn" class="close-btn">✕</button>
+            </div>
+            
+            <div class="upload-section">
+                <label for="itemSelect" class="section-label">📌 Selecciona Elemento</label>
+                <select id="itemSelect" class="premium-select">
+                    <option value="">-- Selecciona --</option>
+                </select>
+                
+                <label for="imageInput" class="section-label">🖼️ Selecciona Imagen</label>
+                <div class="file-input-wrapper">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <span class="file-input-label">Haz clic o arrastra una imagen</span>
+                </div>
+                
+                <div id="imagePreview" class="image-preview premium">
+                    <p>Previsualización de la imagen</p>
+                </div>
+                
+                <div class="button-group">
+                    <button id="uploadBtn" class="btn-primary premium">📤 Cargar Imagen</button>
+                    <button id="deleteBtn" class="btn-danger premium">🗑️ Eliminar</button>
+                </div>
+            </div>
+            
+            <div class="upload-section">
+                <h3 id="uploadSubtitle" class="section-subtitle">Selecciona un piloto y carga su imagen</h3>
+                <div id="uploadedImagesList" class="uploaded-images-grid premium">
+                    <p class="empty-message">No hay imágenes cargadas aún</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TAB: PILOTOS -->
+    <section class="tab-content active" id="pilotos-tab">
+        <div class="section-container">
+            <div class="section-header premium-header">
+                <h2>👨‍✈️ PILOTOS DE FÓRMULA 1</h2>
+                <p>Explora <span id="pilotsCount" class="count-badge">33</span> pilotos históricos y actuales de F1</p>
+            </div>
+
+            <div class="controls premium-controls">
+                <div class="search-wrapper">
+                    <input type="text" id="searchPilotos" placeholder="🔍 Buscar piloto...">
+                </div>
+                
+                <select id="sortPilotos" class="premium-select">
+                    <option value="name">📝 Ordenar: Nombre</option>
+                    <option value="championships">🏆 Campeonatos</option>
+                    <option value="victories">🥇 Victorias</option>
+                    <option value="debut">📅 Debut (antiguo primero)</option>
+                </select>
+            </div>
+
+            <div class="filter-buttons premium-filters">
+                <button class="filter-btn active" data-filter="all">🌟 Todos</button>
+                <button class="filter-btn" data-filter="legend">👑 Leyendas</button>
+                <button class="filter-btn" data-filter="modern-past">🏁 Era Moderna</button>
+                <button class="filter-btn" data-filter="modern">⚡ 2010-2020</button>
+                <button class="filter-btn" data-filter="contemporary">🚀 Actuales</button>
+            </div>
+
+            <div id="pilotsContainer" class="pilots-grid premium-grid"></div>
+        </div>
+    </section>
+
+    <!-- TAB: PISTAS -->
+    <section class="tab-content" id="pistas-tab">
+        <div class="section-container">
+            <div class="section-header premium-header yellow">
+                <h2>🏁 PISTAS DE FÓRMULA 1</h2>
+                <p>Descubre <span id="pistasCount" class="count-badge">23</span> circuitos legendarios de F1</p>
+            </div>
+
+            <div class="controls premium-controls">
+                <div class="search-wrapper">
+                    <input type="text" id="searchPistas" placeholder="🔍 Buscar pista o país...">
+                </div>
+            </div>
+
+            <div id="pistasContainer" class="pistas-grid premium-grid"></div>
+        </div>
+    </section>
+
+    <!-- TAB: COCHES -->
+    <section class="tab-content" id="coches-tab">
+        <div class="section-container">
+            <div class="section-header premium-header cyan">
+                <h2>🏎️ COCHES DE FÓRMULA 1</h2>
+                <p>Analiza <span id="cochesCount" class="count-badge">10</span> monoplazas de los mejores equipos</p>
+            </div>
+
+            <div class="controls premium-controls">
+                <div class="search-wrapper">
+                    <input type="text" id="searchCoches" placeholder="🔍 Buscar equipo o coche...">
+                </div>
+            </div>
+
+            <div id="cochesContainer" class="coches-grid premium-grid"></div>
+        </div>
+    </section>
+
+    <!-- MODAL: PILOTO -->
+    <div id="pilotModal" class="modal premium-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content pilot-modal">
+            <span id="closeModal" class="close-btn modal-close">&times;</span>
+            <div class="modal-header">
+                <div id="modalImageContainer" class="modal-image-container"></div>
+                <div class="modal-header-info">
+                    <div class="modal-number" id="modalNumber"></div>
+                    <h2 id="modalName"></h2>
+                    <p id="modalTeam" class="modal-team"></p>
+                    <p id="modalEra" class="modal-era"></p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription" class="modal-description"></p>
+                <div class="modal-stats premium-stats">
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Nacionalidad</span>
+                        <span id="modalNationality" class="stat-value"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Campeonatos</span>
+                        <span id="modalChampionships" class="stat-value"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Puntos</span>
+                        <span id="modalPoints" class="stat-value"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Debut</span>
+                        <span id="modalDebut" class="stat-value"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Podios</span>
+                        <span id="modalPodiums" class="stat-value"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Victorias</span>
+                        <span id="modalVictories" class="stat-value"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: PISTA -->
+    <div id="pistaModal" class="modal premium-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content pista-modal">
+            <span id="closePistaModal" class="close-btn modal-close">&times;</span>
+            <div id="pistaImageContainer" class="modal-image-container"></div>
+            <div class="modal-body">
+                <h2 id="pistaName"></h2>
+                <p id="pistaPais" class="modal-country"></p>
+                <div class="modal-stats premium-stats">
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">País</span>
+                        <span id="pistaPaisValue"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Longitud</span>
+                        <span id="pistaLongitud"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Vueltas</span>
+                        <span id="pistaVueltas"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Distancia Total</span>
+                        <span id="pistaDistancia"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Récord de Vuelta</span>
+                        <span id="pistaRecordVuelta"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Piloto Récord</span>
+                        <span id="pistaRecordPiloto"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: COCHE -->
+    <div id="cocheModal" class="modal premium-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content coche-modal">
+            <span id="closeCocheModal" class="close-btn modal-close">&times;</span>
+            <div class="modal-body">
+                <h2 id="cocheName"></h2>
+                <p id="cocheEquipo" class="modal-team"></p>
+                <p id="cochePilotos" class="modal-pilots"></p>
+                <div class="modal-stats premium-stats">
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Motor</span>
+                        <span id="cocheMotor"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Potencia</span>
+                        <span id="cochePotencia"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Peso</span>
+                        <span id="cochePeso"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">0-100 km/h</span>
+                        <span id="cocheAceleracion"></span>
+                    </div>
+                    <div class="modal-stat stat-item">
+                        <span class="stat-label">Velocidad Máxima</span>
+                        <span id="cocheVelocidad"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER ELEGANTE -->
+    <footer class="footer premium-footer">
+        <div class="footer-content">
+            <p class="footer-title">📚 Wikipedia de la Fórmula 1</p>
+            <p class="footer-subtitle">La Enciclopedia Más Completa de F1</p>
+            <p class="footer-copyright">© 2025 - Datos actualizados a noviembre 2025 • Diseño Premium</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
